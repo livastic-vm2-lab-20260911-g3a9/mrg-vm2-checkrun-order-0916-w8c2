@@ -13,10 +13,16 @@ jobs:
     name: vm2-real-queue-gate
     runs-on: ubuntu-latest
     steps:
-      - name: Fail actual queue requirement
+      - name: Pass source PR but fail Mergify speculative PR
+        shell: bash
         run: |
-          echo VM2_REAL_QUEUE_GATE_FAILURE
-          exit 1
+          set -euo pipefail
+          echo "head_ref=${{ github.head_ref }}"
+          if [[ "${{ github.head_ref }}" == mergify/merge-queue/* ]]; then
+            echo VM2_REAL_QUEUE_GATE_SYNTHETIC_FAILURE
+            exit 1
+          fi
+          echo VM2_REAL_QUEUE_GATE_SOURCE_SUCCESS
 
   foreign-queue-summary:
     name: Mergify Merge Queue
