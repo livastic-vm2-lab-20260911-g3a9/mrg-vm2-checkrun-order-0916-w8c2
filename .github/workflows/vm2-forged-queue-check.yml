@@ -1,0 +1,26 @@
+name: VM2 forged queue check control
+
+on:
+  pull_request:
+    branches:
+      - forged-queue-base
+
+permissions:
+  contents: read
+
+jobs:
+  real-gate:
+    name: vm2-real-queue-gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail actual queue requirement
+        run: |
+          echo VM2_REAL_QUEUE_GATE_FAILURE
+          exit 1
+
+  foreign-queue-summary:
+    name: Mergify Merge Queue
+    runs-on: ubuntu-latest
+    steps:
+      - name: Foreign same-name success
+        run: echo VM2_FOREIGN_QUEUE_SUMMARY_SUCCESS
