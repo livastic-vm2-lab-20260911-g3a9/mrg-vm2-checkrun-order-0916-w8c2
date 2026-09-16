@@ -1,0 +1,20 @@
+pull_request_rules:
+  - name: VM2 check-run ordering sentinel
+    conditions:
+      - base = order-base
+      - title = VM2_CHECKRUN_ORDER
+      - check-success = @github-actions/vm2-order-gate
+    actions:
+      comment:
+        message: VM2_CHECKRUN_ORDER_SENTINEL
+
+  - name: VM2 check-run ordering merge sink
+    conditions:
+      - base = order-base
+      - title = VM2_CHECKRUN_ORDER
+      - label = vm2-order-merge-go
+      - check-success = @github-actions/vm2-order-gate
+    actions:
+      merge:
+        method: merge
+        merge_bot_account: livastic-vm2-primary-20260911
