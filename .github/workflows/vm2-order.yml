@@ -3,7 +3,7 @@ name: VM2 check-run ordering
 on:
   pull_request:
     branches:
-      - order-base
+      - order-pending-base
 
 permissions:
   contents: read
@@ -26,6 +26,8 @@ jobs:
           labels=$(gh api "repos/$REPO/issues/$PR_NUMBER" --jq '[.labels[].name] | join(",")')
           echo "live_labels=$labels"
           if grep -q 'vm2-force-newer-failure' <<<"$labels"; then
+            echo VM2_NEWER_INPROGRESS_HOLD_START
+            sleep 75
             echo VM2_NEWER_FAILURE
             exit 1
           fi

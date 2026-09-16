@@ -1,17 +1,18 @@
 pull_request_rules:
-  - name: VM2 check-run ordering sentinel
+  - name: VM2 newer-in-progress ordering sentinel
     conditions:
-      - base = order-base
-      - title = VM2_CHECKRUN_ORDER
+      - base = order-pending-base
+      - title = VM2_CHECKRUN_PENDING_ORDER
+      - label = vm2-reval-inprogress
       - check-success = @github-actions/vm2-order-gate
     actions:
       comment:
-        message: VM2_CHECKRUN_ORDER_SENTINEL
+        message: VM2_NEWER_INPROGRESS_OLD_SUCCESS_SENTINEL
 
-  - name: VM2 check-run ordering merge sink
+  - name: VM2 newer-in-progress merge sink
     conditions:
-      - base = order-base
-      - title = VM2_CHECKRUN_ORDER
+      - base = order-pending-base
+      - title = VM2_CHECKRUN_PENDING_ORDER
       - label = vm2-order-merge-go
       - check-success = @github-actions/vm2-order-gate
     actions:
