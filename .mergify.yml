@@ -1,18 +1,1 @@
-pull_request_rules:
-  - name: VM2 shared-SHA PR A failure sentinel
-    conditions:
-      - base = shared-sha-base-a
-      - title = VM2_SHARED_SHA_A
-      - check-failure = vm2-shared-status
-    actions:
-      comment:
-        message: VM2_SHARED_SHA_A_FAILURE_SEEN
-
-  - name: VM2 shared-SHA PR B failure sentinel
-    conditions:
-      - base = shared-sha-base-b
-      - title = VM2_SHARED_SHA_B
-      - check-failure = vm2-shared-status
-    actions:
-      comment:
-        message: VM2_SHARED_SHA_B_FAILURE_SEEN
+pull_request_rules: []
